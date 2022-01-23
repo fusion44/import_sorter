@@ -1,4 +1,4 @@
-<!-- DO NOT REMOVE - contributor_list:data:start:["gleich", "lig", "bartekpacia", "ImgBotApp", "jlnrrg", "vHanda", "lsaudon"]:end -->
+<!-- DO NOT REMOVE - contributor_list:data:start:["gleich", "lig", "bartekpacia", "ImgBotApp", "jlnrrg", "vHanda", "lsaudon", "fusion44"]:end -->
 
 ```txt
  ___  _____ ______   ________  ________  ________  _________
@@ -97,6 +97,9 @@ Once you've installed it simply run `flutter pub run import_sorter:main` (`pub r
 - You can only run import_sorter on certain files by passing in a regular expression(s) that will only sort certain files. Below are two examples:
   - `pub run import_sorter:main bin/main.dart lib/args.dart` (only sorts bin/main.dart and lib/args.dart)
   - `pub run import_sorter:main lib\/* test\/*` (only sorts files in the lib and test folders)
+- You can specify multiple additional paths by passing the `--additional-path` option:
+  - `pub run import_sorter:main --additional-path path1 --additional-path path2` 
+
 
 ## 🏗️ Config
 
@@ -108,6 +111,9 @@ import_sorter:
   comments: false # Optional, defaults to true
   ignored_files: # Optional, defaults to []
     - \/lib\/*
+  additional-paths: # Optional, defaults to []
+    - path1
+    - path2
 ```
 
 If you need another example check the [example app's import_sorter configuration](https://github.com/fluttercommunity/import_sorter/blob/master/example/example_app/pubspec.yaml#L76).
@@ -156,5 +162,7 @@ All contributions are welcome! Just make sure that it's not an already existing 
 - **[@vHanda](https://github.com/vHanda)**
 
 - **[@lsaudon](https://github.com/lsaudon)**
+
+- **[@fusion44](https://github.com/fusion44)**
 
 <!-- DO NOT REMOVE - contributor_list:end -->

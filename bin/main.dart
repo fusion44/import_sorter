@@ -19,7 +19,9 @@ void main(List<String> args) {
   parser.addFlag('help', abbr: 'h', negatable: false);
   parser.addFlag('exit-if-changed', negatable: false);
   parser.addFlag('no-comments', negatable: false);
-  final argResults = parser.parse(args).arguments;
+  parser.addMultiOption('additional-path');
+  final results = parser.parse(args);
+  final argResults = results.arguments;
   if (argResults.contains('-h') || argResults.contains('--help')) {
     local_args.outputHelp();
   }
@@ -47,7 +49,7 @@ void main(List<String> args) {
   var emojis = false;
   var noComments = false;
   final ignored_files = [];
-
+  final additionalPaths = [];
   // Reading from config in pubspec.yaml safely
   if (!argResults.contains('--ignore-config')) {
     if (pubspecYaml.containsKey('import_sorter')) {
@@ -56,6 +58,9 @@ void main(List<String> args) {
       if (config.containsKey('comments')) noComments = !config['comments'];
       if (config.containsKey('ignored_files')) {
         ignored_files.addAll(config['ignored_files']);
+      }
+      if (config.containsKey('additional-paths')) {
+        additionalPaths.addAll(config['additional-paths']);
       }
     }
   }
@@ -66,7 +71,12 @@ void main(List<String> args) {
   final exitOnChange = argResults.contains('--exit-if-changed');
 
   // Getting all the dart files for the project
-  final dartFiles = files.dartFiles(currentPath, args);
+  final dartFiles = files.dartFiles(
+    currentPath,
+    args,
+    additionalPaths: [...additionalPaths, ...results['additional-path']],
+  );
+
   final containsFlutter = dependencies.contains('flutter');
   final containsRegistrant = dartFiles
       .containsKey('${currentPath}/lib/generated_plugin_registrant.dart');
